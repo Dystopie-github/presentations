@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="/presentations/assets/revealjs/css/reveal.css">
+  <link rel="stylesheet" href="/presentations/assets/revealjs/css/theme/{% if page.theme %}{{ page.theme }}{% else %}white{% endif %}.css" id="theme">
+  <!--Add support for earlier versions of Internet Explorer -->
+  <!--[if lt IE 9]>
+  <script src="lib/js/html5shiv.js"></script>
+  <![endif]-->
+  
+  <!-- Theme used for syntax highlighting of code -->
+  <link rel="stylesheet" href="/presentations/assets/revealjs/lib/css/zenburn.css">
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? '/presentations/assets/revealjs/css/print/pdf.css' : '/presentations/assets/revealjs/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+</head>
+<body>
+  <div class="reveal">	
+    <div class="slides">
+      {{ content }} 
+    </div>
+  </div>
+  <script src="/presentations/assets/revealjs/js/reveal.js"></script>
+  <script src="/presentations/assets/revealjs/lib/js/head.min.js"></script>
+  <script>
+    <!-- var reveal_config = {{ page.reveal_config | jsonify }} || {}; -->
+    Reveal.initialize({
+      dependencies: [
+        { src: '/presentations/assets/revealjs/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+        { src: '/presentations/assets/revealjs/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+        { src: '/presentations/assets/revealjs/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+        { src: '/presentations/assets/revealjs/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+        { src: '/presentations/assets/revealjs/plugin/zoom-js/zoom.js', async: true },
+        { src: '/presentations/assets/revealjs/plugin/notes/notes.js', async: true },
+        { src: '/presentations/assets/revealjs/plugin/tagcloud/tagcloud.js', async: true },
+      ]
+    });
+    <!--  Reveal.configure(reveal_config) -->
+  </script>
+</body>
+</html>
