@@ -18,22 +18,17 @@ reveal_config:
   <section>
     <h1> À propos de moi</h1>
   </section>
-  <section data-markdown>
+  <section data-markdown data-background="/presentations/images/cagoule.JPG">
     ## Marc-André Lagacé
 
     7 ans d'expérience en TI
 
     - Spécialiste en déploiment et intégration continue
     - Ninja hacker; eye slit supporter!
-    ![Cagoule](/presentations/images/cagoule.JPG) 
-
-  </section>
-  <section data-markdown>
-    ![Cagoule](/presentations/images/cagoule.JPG)
   </section>
 </section>
 <section data-markdown>
-# Jenkins pipeline code
+### Jenkins pipeline code
 ```groovy
 node {
    stage('SCM') { git 'https://github.com/foo/bar.git' }
