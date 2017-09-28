@@ -34,7 +34,8 @@ reveal_config:
 </section>
 <section data-markdown>
     # Jenkins pipeline code
-    '''node {
+    ```groovy
+  node {
   stage('SCM') {
     git 'https://github.com/foo/bar.git'
   }
@@ -54,6 +55,5 @@ stage("Quality Gate"){
     }
   }
 }
-    
-    '''
+    ```
 </section>
