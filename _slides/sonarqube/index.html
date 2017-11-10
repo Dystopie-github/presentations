@@ -27,75 +27,96 @@ reveal_config:
     - Étudiant au bacc en cybersécurité à PolyMTL
   </section>
 </section>
-    <section data-markdown>
-        # sonarqube
-        #### What is it?
-    </section>
-    <section data-markdown>
-           #### Features
-           - Can work with git: commit, author and last modification
-           - Quality gate, Code Smell, Coding Rule
-           - Authentification with LDAP, Google, gitlab, github or bitbucket
-           - Can analyze code directly in git or Jenkins slave
-           - Need a database: MSSQL, MySQL, Oracle and PostgreSQL
-           - Come with builtin web server, Elasticsearch and Compute Engine
-    </section>
-    <section data-markdown>
-           #### sonarqube is a multi-language code scanner
-           - Support over 20 different languages
-           - Support multi language project
-           - PHP + js + css + html under the same project
-    </section>
-    <section data-markdown>
-           #### Scan code for Bugs and Vulnerabilities
-           - Continious inspection, every push to stage
-           - Keep track of history
-           - Bugs, Code smell and vulnerabilities
-           - Specify custom module path
-           - Specific scaner by language
-    </section>
-    <section data-markdown>
-           #### static code analyzer for PHP
-           - Can be integrated to IDE (Eclipse + other)
-           - More then 128 rules
-           - Check for over 10 specific php vulnerabilities
-           - Will check for Drupal Best practice (Drupal profile)
-    </section>
-    <section data-markdown>
-           #### Security
-           - sonarqube is a static code analyzer, not a pentest tools
-           - Expect false positif
-           - Can scan for CWE, SANS top 25, OWASP, MISRA and CERT
-           [Reference for php scaner](https://www.sonarsource.com/products/codeanalyzers/sonarphp.html)
-    </section>
-    <section data-markdown>
-           #### OnPremise and cloud version
-           - OnPremise version require:  Open Source project
-    </section>
+<section data-markdown>
+  # sonarqube
+  #### What is it?
+</section>
+<section data-markdown>
+  #### Features
+  - Can work with git: commit, author and last modification
+  - Quality gate, Code Smell, Coding Rule
+  - Authentification with LDAP, Google, gitlab, github or bitbucket
+  - Can analyze code directly in git or Jenkins slave
+  - Need a database: MSSQL, MySQL, Oracle and PostgreSQL
+  - Come with builtin web server, Elasticsearch and Compute Engine
+</section>
+<section data-markdown>
+  #### sonarqube is a multi-language code scanner
+  - Support over 20 different languages
+  - Support multi language project
+  - PHP + js + css + html under the same project
+</section>
+<section data-markdown>
+  ![Vul](/presentations/images/logout.jpg)
+</section>
 <section>
   <section data-markdown>
-    # Can be automated with Jenkins!
+    #### Scan code for Bugs and Vulnerabilities
+    - Continious inspection, every push to stage
+    - Keep track of history
+    - Bugs, Code smell and vulnerabilities
+    - Specify custom module path
+    - Specific scaner by language
   </section>
+    <section data-markdown>
+    #### lexicon
+    - Quality gate: Check rule and throw pass or fail and fail the build
+    - Coding rules: ```php <?php ``` instead of ```php <? ```
+    - Quality Profiles: Check for Drupal Good Practice
+    - Vulnerabilities...
+  </section>
+  <section data-markdown>
+  ![Vul](/presentations/images/vul.JPG)
+  </section>
+</section>
 <section data-markdown>
-### Jenkins pipeline code
-```groovy
-node {
-   stage('SCM') { git 'https://github.com/foo/bar.git' }
-   stage('SonarQube analysis') {
-      withSonarQubeEnv('My SonarQube Server') {
-         sh 'mvn clean package sonar:sonar'
-       } // SonarQube taskId is automatically attached to the pipeline context
-   }
-}
-// No need to occupy a node
-stage("Quality Gate"){
-   timeout(time: 1, unit: 'HOURS') { // Just in case something goes wrong, pipeline will be killed after a timeout
-      def qg = waitForQualityGate() // Reuse taskId previously collected by withSonarQubeEnv
-      if (qg.status != 'OK') {
-      error "Pipeline aborted due to quality gate failure: ${qg.status}"
+  #### static code analyzer for PHP
+  - Can be integrated to IDE (Eclipse + other)
+  - More then 128 rules
+  - Check for over 10 specific php vulnerabilities
+  - Will check for Drupal Best practice (Drupal profile)
+</section>
+<section data-markdown>
+  ![Vul](/presentations/images/lolcat-security.jpg)
+</section>
+<section data-markdown>
+  #### Security
+  - sonarqube is a static code analyzer, not a pentest tools
+  - Expect false positif
+  - Can scan for CWE, SANS top 25, OWASP, MISRA and CERT
+  [Reference for php scaner](https://www.sonarsource.com/products/codeanalyzers/sonarphp.html)
+</section>
+  <section data-markdown>
+  #### OnPremise and cloud version
+  - OnPremise version require:  Open Source project
+</section>
+<section>
+  <section data-markdown>
+     # Can be automated with Jenkins!
+  </section>
+  <section data-markdown>
+     ![Vul](/presentations/images/waitwhat.jpg)
+  </section>
+  <section data-markdown>
+    ### Jenkins pipeline code
+    ```groovy
+    node {
+       stage('SCM') { git 'https://github.com/foo/bar.git' }
+       stage('SonarQube analysis') {
+          withSonarQubeEnv('My SonarQube Server') {
+             sh 'mvn clean package sonar:sonar'
+           } // SonarQube taskId is automatically attached to the pipeline context
+       }
     }
-  }
-}
-```
- </section>
+    // No need to occupy a node
+    stage("Quality Gate"){
+       timeout(time: 1, unit: 'HOURS') { // Just in case something goes wrong, pipeline will be killed after a timeout
+          def qg = waitForQualityGate() // Reuse taskId previously collected by withSonarQubeEnv
+          if (qg.status != 'OK') {
+          error "Pipeline aborted due to quality gate failure: ${qg.status}"
+        }
+      }
+    }
+    ```
+  </section>
 </section>
