@@ -118,6 +118,41 @@ reveal_config:
     ```
   </section>
   <section data-markdown>
+    #### sonarqube files
+    ```groovy
+# Required metadata
+sonar.projectKey=_PROJECT_
+sonar.host.url=http://(IP or URL):9000
+# Comma-separated paths to directories with sources (required)
+sonar.sources=docroot/sites/all/modules,docroot/sites/default/
+#sonar.ws.timeout=108000
+#sonar.inclusions=**/sites/all/modules/custom/**,**/sites/default/** 
+# Language
+sonar.language=php
+# Encoding of the source files
+sonar.sourceEncoding=UTF-8
+```    
+  </section>
+  <section data-markdown>
     ![bla2](/presentations/images/meow-its-time-for-a-demo.jpg)
+  </section>
+</section>
+<section>
+  <section data-markdown>
+    ## What's next?
+  </section>
+    <section data-markdown>
+    #### Phase 1
+    - Migrating more project to new workflow (DevOps)
+    - Get familiar with sonar-project.properties and sonarqube report
+    - Only look at vulnerabilities scan for now
+  </section>
+  <section data-markdown>
+    #### Phase 2
+    - Implementing your own coding rule for your team/project
+    - Filter false positive
+  </section>
+    <section data-markdown>
+    ### Yes email notification when Jenkins build fail are coming
   </section>
 </section>
