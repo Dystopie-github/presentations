@@ -98,24 +98,24 @@ reveal_config:
   <section data-markdown>
     ### Jenkins pipeline code
     ```groovy
-    node {
-       stage('SCM') { git 'https://github.com/foo/bar.git' }
-       stage('SonarQube analysis') {
-          withSonarQubeEnv('My SonarQube Server') {
-             sh 'mvn clean package sonar:sonar'
-           } // SonarQube taskId is automatically attached to the pipeline context
-       }
-    }
-    // No need to occupy a node
-    stage("Quality Gate"){
-       timeout(time: 1, unit: 'HOURS') { // Just in case something goes wrong, pipeline will be killed after a timeout
-          def qg = waitForQualityGate() // Reuse taskId previously collected by withSonarQubeEnv
-          if (qg.status != 'OK') {
-          error "Pipeline aborted due to quality gate failure: ${qg.status}"
-        }
-      }
-    }
-    ```
+node {
+ stage('SCM') { git 'https://github.com/foo/bar.git' }
+ stage('SonarQube analysis') {
+ withSonarQubeEnv('My SonarQube Server') {
+ sh 'mvn clean package sonar:sonar'
+ } // SonarQube taskId is automatically attached to the pipeline context
+ }
+}
+// No need to occupy a node
+stage("Quality Gate"){
+ timeout(time: 1, unit: 'HOURS') { // Just in case something goes wrong, pipeline will be killed after a timeout 
+ def qg = waitForQualityGate() // Reuse taskId previously collected by withSonarQubeEnv
+ if (qg.status != 'OK') {
+ error "Pipeline aborted due to quality gate failure: ${qg.status}"
+}
+}
+}
+ ```
   </section>
   <section data-markdown>
     #### sonarqube files
@@ -145,6 +145,7 @@ sonar.sourceEncoding=UTF-8
     #### Phase 1
     - Migrating more project to new workflow (DevOps)
     - Get familiar with sonar-project.properties and sonarqube report
+    - Add sonar-project.properties, Jenkinsfile to your repo and edit .gitignore
     - Only look at vulnerabilities scan for now
   </section>
   <section data-markdown>
